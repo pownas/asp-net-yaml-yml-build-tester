@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore .\src\WebApp\WebApp.sln
     - name: Remove migrations 
-      run: rmdir ".\src\WebApp\Migrations" /s
+      run: Remove-Item -path ".\src\WebApp\Migrations" -WhatIf
     - name: Create new migrations
       run: dotnet ef migrations add "SkapatNyaTabeller" -s .\src\WebApp\WebApp.sln -c ApplicationDbContext
     - name: Test
