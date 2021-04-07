@@ -21,6 +21,8 @@ jobs:
       run: dotnet restore ./src/WebApp/WebApp.sln
     - name: Build
       run: dotnet build --no-restore ./src/WebApp/WebApp.sln
+    - name: Install dotnet ef
+      run: dotnet tool install --global dotnet-ef
     - name: Create new migrations
       run: dotnet ef migrations add "CreatedNewTables" -s ./src/WebApp/WebApp.sln -c ApplicationDbContext
     - name: Test
