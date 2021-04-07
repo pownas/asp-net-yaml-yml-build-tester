@@ -1,4 +1,4 @@
-name: .NET 5.0.x
+name: .NET-Ubuntu v5.0.x (5.0.202)
 
 on:
   push:
