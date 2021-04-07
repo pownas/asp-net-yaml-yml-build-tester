@@ -13,10 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET v5.0.x
+    - name: Setup .NET v5.0.201
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 5.0.201
     - name: Restore dependencies
       run: dotnet restore ./src/WebApp/WebApp.sln
     - name: Build
