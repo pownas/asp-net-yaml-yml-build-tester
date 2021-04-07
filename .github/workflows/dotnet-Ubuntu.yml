@@ -24,6 +24,8 @@ jobs:
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
     - name: Create new migrations
-      run: dotnet ef migrations add "CreatedNewTables" -s ./src/WebApp/WebApp.sln -c ApplicationDbContext
+# https://stackoverflow.com/a/66324027/14036841
+# dotnet ef migrations add NewMigration --msbuildprojectextensionspath obj/local
+      run: dotnet ef migrations add "CreatedNewTables" -s ./src/WebApp/WebApp.sln -c ApplicationDbContext --msbuildprojectextensionspath obj/local
     - name: Test
       run: dotnet test --no-build --verbosity normal ./src/WebApp/WebApp.sln
