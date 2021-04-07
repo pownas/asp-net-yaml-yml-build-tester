@@ -1,4 +1,4 @@
-name: .NET-Ubuntu v5.0.x (5.0.202)
+name: .NET-Ubuntu
 
 on:
   push:
@@ -21,5 +21,7 @@ jobs:
       run: dotnet restore ./src/WebApp/WebApp.sln
     - name: Build
       run: dotnet build --no-restore ./src/WebApp/WebApp.sln
+    - name: Create new migrations
+      run: dotnet ef migrations add "CreatedNewTables" -s ./src/WebApp/WebApp.sln -c ApplicationDbContext
     - name: Test
       run: dotnet test --no-build --verbosity normal ./src/WebApp/WebApp.sln
