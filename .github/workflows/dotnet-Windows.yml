@@ -37,11 +37,5 @@ jobs:
       run: dotnet ef database update -p ./src/WebApp/WebApp/WebApp.csproj
       env:
         ASPNETCORE_ENVIRONMENT: Development
-#      run: |
-#            dotnet tool install --global dotnet-ef
-#            dotnet tool restore
-#            dotnet ef database update -p ./src/WebApp/WebApp/WebApp.csproj
-#      env:
-#        ASPNETCORE_ENVIRONMENT: Development
     - name: dotnet - Test
       run: dotnet test --no-build --verbosity normal ./src/WebApp/WebApp.sln
