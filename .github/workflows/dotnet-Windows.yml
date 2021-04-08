@@ -18,15 +18,30 @@ jobs:
       with:
         dotnet-version: 5.0.x
 #    A workaround to resolve nuget-issue: https://github.com/dotnet/installer/issues/10171
-    - name: WORKAROUND - Add nuget.org
+    - name: NuGet - Add nuget.org (WORKAROUND)
       run: dotnet nuget add source https://api.nuget.org/v3/index.json --name nuget.org
-    - name: Restore dependencies
+    - name: dotnet - Restore dependencies
       run: dotnet restore ./src/WebApp/WebApp.sln
-    - name: Build
+    - name: dotnet - Build
       run: dotnet build --no-restore ./src/WebApp/WebApp.sln
-#    - name: Remove migrations 
+#    - name: ps - Remove migrations 
 #      run: Remove-Item -path ./src/WebApp/WebApp/Data/Migrations -WhatIf
-#    - name: Create new migrations
-#      run: dotnet ef migrations add "CreatedNewTables" -s ./src/WebApp/WebApp.sln -c ApplicationDbContext
-    - name: Test
+    - name: EF - Create new migrations
+      run: |
+            dotnet tool install --global dotnet-ef
+            dotnet tool restore
+            dotnet ef migrations add "CreatedNewTables" -s ./src/WebApp/WebApp.sln -c ApplicationDbContext
+      env:
+        ASPNETCORE_ENVIRONMENT: Development
+    - name: EF - Update database
+      run: dotnet ef database update -p ./src/WebApp/WebApp/WebApp.csproj
+      env:
+        ASPNETCORE_ENVIRONMENT: Development
+#      run: |
+#            dotnet tool install --global dotnet-ef
+#            dotnet tool restore
+#            dotnet ef database update -p ./src/WebApp/WebApp/WebApp.csproj
+#      env:
+#        ASPNETCORE_ENVIRONMENT: Development
+    - name: dotnet - Test
       run: dotnet test --no-build --verbosity normal ./src/WebApp/WebApp.sln
